@@ -1,0 +1,13 @@
+{
+  "name": "kelvin-portfolio-static",
+  "version": "1.0.0",
+  "description": "Static HTML version of Kelvin Ussein's graphic design portfolio",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

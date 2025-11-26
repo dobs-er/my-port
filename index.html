@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1"
+    />
+    <title>Kelvin Ussein | Creative Graphic Designer</title>
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#1a202c",
+              secondary: "#6c5ce7",
+              accent: "#fd9644",
+              success: "#27ae60",
+              error: "#e74c3c",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              display: ["Montserrati", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer base {
+        html {
+          scroll-behavior: smooth;
+        }
+
+        body {
+          @apply font-sans antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          @apply font-display;
+        }
+      }
+
+      @layer components {
+        .nav-link {
+          position: relative;
+        }
+
+        .nav-link::after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: -4px;
+          left: 0;
+          @apply bg-accent;
+          transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+          width: 100%;
+        }
+
+        .project-card {
+          @apply relative rounded-lg overflow-hidden shadow-md bg-white;
+        }
+
+        .project-overlay {
+          @apply absolute inset-0 bg-primary/80 opacity-0 transition-opacity 
+            flex flex-col justify-center items-center p-6 text-white;
+        }
+
+        .project-card:hover .project-overlay {
+          @apply opacity-100;
+        }
+
+        /* Filter button styles */
+        .filter-btn {
+          @apply px-4 py-2 rounded-md text-sm font-medium transition-colors;
+        }
+
+        .filter-btn.active {
+          @apply bg-primary text-white;
+        }
+
+        .filter-btn:not(.active) {
+          @apply bg-slate-200 hover:bg-slate-300;
+        }
+
+        /* Modal styles */
+        .modal {
+          @apply fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/50;
+        }
+
+        .modal.active {
+          @apply flex;
+        }
+
+        .modal-content {
+          @apply bg-white rounded-lg shadow-xl max-w-4xl max-h-[100vh] overflow-y-auto w-full;
+        }
+
+        /* Image gallery navigation */
+        .gallery-nav {
+          @apply absolute top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition-colors;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header
+      class="fixed w-full backdrop-blur-md z-50 shadow-sm transition-all duration-300 bg-white/80"
+    >
+      <div
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <a
+          href="#"
+          class="font-display font-semibold text-2xl text-primary flex items-center"
+        >
+          <span class="text-accent"></span>
+          KU
+        </a>
+
+        <nav class="hidden md:block">
+          <ul class="flex space-x-8">
+            <li>
+              <a
+                href="#home"
+                class="nav-link text-primary hover:text-accent transition-colors"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="#work"
+                class="nav-link text-primary hover:text-accent transition-colors"
+                >Work</a
+              >
+            </li>
+            <li>
+              <a
+                href="#about"
+                class="nav-link text-primary hover:text-accent transition-colors"
+                >About</a
+              >
+            </li>
+            <li>
+              <a
+                href="#contact"
+                class="nav-link text-primary hover:text-accent transition-colors"
+                >Contact</a
+              >
+            </li>
+          </ul>
+        </nav>
+
+        <button
+          id="mobile-menu-toggle"
+          class="md:hidden text-primary focus:outline-none"
+          aria-label="Toggle menu"
+        >
+          <i class="fas fa-bars text-xl" id="menu-icon"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="md:hidden bg-white w-full border-t hidden">
+        <ul class="container mx-auto px-6 py-3 flex flex-col space-y-3">
+          <li>
+            <a
+              href="#home"
+              class="mobile-link block py-2 text-primary hover:text-accent transition-colors"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="#work"
+              class="mobile-link block py-2 text-primary hover:text-accent transition-colors"
+              >Work</a
+            >
+          </li>
+          <li>
+            <a
+              href="#about"
+              class="mobile-link block py-2 text-primary hover:text-accent transition-colors"
+              >About</a
+            >
+          </li>
+          <li>
+            <a
+              href="#contact"
+              class="mobile-link block py-2 text-primary hover:text-accent transition-colors"
+              >Contact</a
+            >
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section
+      id="home"
+      class="pt-32 pb-20 md:pt-40 md:pb-32 bg-primary text-white"
+    >
+      <div class="container mx-auto px-6 flex justify-center items-center">
+        <div class="flex flex-col md:flex-row md:items-center justify-center">
+          <div class="max-w-3xl" data-aos="fade-up" data-aos-duration="1000">
+            <p class="lg:text-5xl text-2xl font-semibold mb-3 lg:text-center">
+              Hi, I am Kelvin Ussein,
+            </p>
+            <h1 class="text-lg md:text-4xl leading-tight lg:text-center">
+              a creative
+              <span class="text-accent">graphic designer</span>
+              <span>with over 3 years experience</span>
+            </h1>
+            <p
+              class="mt-6 text-md md:text-xl text-slate-300 lg:justify-center lg:items-center"
+            >
+              I create captivating visual experiences through innovative design.
+              Specializing in crafting unique brand identities, social media
+              designs, posters, and print designs.
+            </p>
+            <div
+              class="mt-10 flex flex-wrap gap-4 lg:justify-center lg:items-center"
+            >
+              <a
+                href="#work"
+                class="px-6 py-3 bg-accent hover:bg-accent/90 text-white font-medium rounded-md transition-colors inline-flex items-center gap-2"
+              >
+                View My Work
+                <i class="fas fa-arrow-right ml-2"></i>
+              </a>
+              <a
+                href="#contact"
+                class="px-6 py-3 bg-transparent border border-white hover:bg-white/10 text-white font-medium rounded-md transition-colors"
+              >
+                Contact Me
+              </a>
+            </div>
+            <div class="mt-12 flex gap-6 lg:justify-center lg:items-center">
+              <a
+                href="https://www.behance.net/dobsdesigns"
+                class="text-slate-300 hover:text-white transition-colors"
+                aria-label="Behance"
+              >
+                <i class="fab fa-behance text-2xl"></i>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/kelvin-ussein-611073259"
+                class="text-slate-300 hover:text-white transition-colors"
+                aria-label="LinkedIn"
+              >
+                <i class="fab fa-linkedin text-2xl"></i>
+              </a>
+
+              <a
+                href="https://www.instagram.com/dobsdesigns?igsh=bmh0NWtqbWwxam5x
+                "
+                class="text-slate-300 hover:text-white transition-colors"
+                aria-label="Instagram"
+              >
+                <i class="fab fa-instagram text-2xl"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Work Section -->
+    <section id="work" class="py-20 bg-slate-50">
+      <div class="container mx-auto px-6" data-aos="fade-up">
+        <div class="mb-12 lg:justify-center lg:items-center text-center">
+          <h2 class="text-3xl md:text-4xl font-bold">
+            Some of My <span class="text-accent">Work</span>
+          </h2>
+          <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
+            Explore a collection of my recent graphic design projects spanning
+            brand identity, print design, social media designs, posters, design
+            etc.
+          </p>
+        </div>
+
+        <!-- Work Filter -->
+        <div
+          class="mb-10 flex flex-wrap gap-4 lg:items-center lg:justify-center"
+        >
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="event">Event</button>
+          <button class="filter-btn" data-filter="brand-identity">
+            Branding
+          </button>
+          <button class="filter-btn" data-filter="print">Print Design</button>
+          <button class="filter-btn" data-filter="posters">Posters</button>
+          <button class="filter-btn" data-filter="social">Social Media</button>
+          <!-- <button class="filter-btn" data-filter="ui-ux">UI/UX</button> -->
+
+          <!-- <button class="filter-btn" data-filter="motion-graphics">
+            Motion-Graphics
+          </button> -->
+        </div>
+
+        <!-- Projects Grid -->
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center justify-center"
+          id="projects-grid"
+        >
+          <!-- Project cards will be added here dynamically via JavaScript -->
+        </div>
+
+        <div class="mt-12 text-center">
+          <!-- <a
+            href="all"
+            class="inline-flex items-center gap-2 text-primary hover:text-accent transition-colors font-medium"
+          >
+            View All Projects
+            <i class="fas fa-long-arrow-alt-right"></i>
+          </a> -->
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="items-center">
+          <div data-aos="fade-right">
+            <h2 class="text-3xl md:text-4xl font-bold text-center">
+              About <span class="text-accent">Me</span>
+            </h2>
+            <p class="mt-6 text-slate-600">
+              I'm a passionate graphic designer with over 3 years of experience
+              creating visual identities and print designs that make brands
+              stand out. My background in fine art and design theory allows me
+              to approach each project with both creativity and purpose.
+            </p>
+            <p class="mt-4 text-slate-600">
+              I am always eager to learn new skills and stay updated with the
+              latest advancements in design technology. I'm excited to apply my
+              skills to real world projects and help brands tell their stories
+              through design.
+            </p>
+
+            <!-- Design Skills 
+             <div class="mt-8">
+              <h3 class="text-xl font-semibold">My Design Skills</h3>
+              <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <div class="flex justify-between">
+                    <p class="font-medium">Brand Identity</p>
+                    <span class="text-sm text-slate-500">95%</span>
+                  </div>
+                  <div
+                    class="h-2 mt-2 bg-slate-200 rounded-full overflow-hidden"
+                  >
+                    <div class="h-full bg-secondary" style="width: 95%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between">
+                    <p class="font-medium">Typography</p>
+                    <span class="text-sm text-slate-500">92%</span>
+                  </div>
+                  <div
+                    class="h-2 mt-2 bg-slate-200 rounded-full overflow-hidden"
+                  >
+                    <div class="h-full bg-secondary" style="width: 92%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between">
+                    <p class="font-medium">Illustration</p>
+                    <span class="text-sm text-slate-500">88%</span>
+                  </div>
+                  <div
+                    class="h-2 mt-2 bg-slate-200 rounded-full overflow-hidden"
+                  >
+                    <div class="h-full bg-secondary" style="width: 88%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between">
+                    <p class="font-medium">Print Design</p>
+                    <span class="text-sm text-slate-500">90%</span>
+                  </div>
+                  <div
+                    class="h-2 mt-2 bg-slate-200 rounded-full overflow-hidden"
+                  >
+                    <div class="h-full bg-secondary" style="width: 90%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>  -->
+
+            <!-- tools i use section -->
+
+            <!-- <div class="mt-8">
+              <h3 class="text-xl font-semibold mb-3">Tools I Use</h3>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm"
+                  >Adobe Photoshop</span
+                >
+                <span
+                  class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm"
+                  >Adobe Illustrator</span
+                >
+                <span
+                  class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm"
+                  >Adobe InDesign</span
+                >
+                <span
+                  class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm"
+                  >Adobe After Effects</span
+                >
+                <span
+                  class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm"
+                  >Procreate</span
+                >
+                <span
+                  class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm"
+                  >Figma</span
+                >
+                <span
+                  class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm"
+                  >Wacom Tablet</span
+                >
+                <span
+                  class="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm"
+                  >Lightroom</span
+                >
+              </div>
+            </div>
+          </div>
+          
+          <div class="relative" data-aos="fade-left">
+            <div
+              class="absolute -top-5 -left-5 w-20 h-20 bg-accent rounded-lg"
+            ></div>
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+              alt="Designer working at desk"
+              class="relative z-10 rounded-lg shadow-lg w-full h-auto object-cover"
+            />
+            <div
+              class="absolute -bottom-5 -right-5 w-20 h-20 bg-secondary rounded-lg"
+            ></div>
+          </div> -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-slate-100">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12" data-aos="fade-up">
+          <h2 class="text-3xl md:text-4xl font-bold">
+            Client <span class="text-accent">Testimonials</span>
+          </h2>
+          <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
+            Here's what some of my clients have to say about working together.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div
+            class="bg-white p-6 rounded-lg shadow-md"
+            data-aos="fade-up"
+            data-aos-delay="0"
+          >
+            <div class="flex items-center mb-4">
+              <img
+                src="images/testmonials/man.png"
+                alt="Felix Makuwira"
+                class="w-12 h-12 rounded-full object-cover"
+              />
+              <div class="ml-4">
+                <h4 class="font-semibold">Felix Makuwira</h4>
+                <p class="text-sm text-slate-500">
+                  K and K Consultants, Managing Director
+                </p>
+              </div>
+            </div>
+            <p class="text-slate-600 italic">
+              "Working with Kelvin was an absolute pleasure. He translated our
+              brand vision into stunning visual assets that have significantly
+              strengthened our identity. His creative approach and attention to
+              detail made all the difference."
+            </p>
+            <div class="mt-4 flex text-amber-400">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+
+          <div
+            class="bg-white p-6 rounded-lg shadow-md"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div class="flex items-center mb-4">
+              <img
+                src="images/testmonials/man.png"
+                alt="Adan Nkosi"
+                class="w-12 h-12 rounded-full object-cover"
+              />
+              <div class="ml-4">
+                <h4 class="font-semibold">Adan Nkosi</h4>
+                <p class="text-sm text-slate-500">
+                  CEO, Leads Insurance Brokers
+                </p>
+              </div>
+            </div>
+            <p class="text-slate-600 italic">
+              "The social media ad designs Kelvin created for our Broker firm
+              perfectly captured our values and aesthetic. These visual designs
+              have helped us stand out in a competitive market. Highly
+              recommended!"
+            </p>
+            <div class="mt-4 flex text-amber-400">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+
+          <div
+            class="bg-white p-6 rounded-lg shadow-md"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div class="flex items-center mb-4">
+              <img
+                src="images/testmonials/woman.png"
+                alt="Queen Phiri"
+                class="w-12 h-12 rounded-full object-cover"
+              />
+              <div class="ml-4">
+                <h4 class="font-semibold">Queen Phiri</h4>
+                <p class="text-sm text-slate-500">CEO, Tech Erudition</p>
+              </div>
+            </div>
+            <p class="text-slate-600 italic">
+              "Kelvin's attention to typography details, print and the
+              innovative approach to our feature spreads resulted in our
+              highest-selling issue to date."
+            </p>
+            <div class="mt-4 flex text-amber-400">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div data-aos="fade-right">
+            <h2 class="text-3xl md:text-4xl font-bold">
+              Let's <span class="text-accent">Connect</span>
+            </h2>
+            <p class="mt-6 text-slate-600">
+              Have a design project in mind or want to learn more about my
+              creative services? I'd love to hear from you. Fill out the form or
+              use my contact details below.
+            </p>
+
+            <div class="mt-8">
+              <h3 class="text-xl font-semibold mb-4">Design Services</h3>
+              <ul class="space-y-2 text-slate-600">
+                <li class="flex items-center gap-2">
+                  <i class="fas fa-check text-accent text-sm"></i>
+                  <span>Brand Identity </span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i class="fas fa-check text-accent text-sm"></i>
+                  <span>Social Media Designs</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i class="fas fa-check text-accent text-sm"></i>
+                  <span>Posters</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i class="fas fa-check text-accent text-sm"></i>
+                  <span>Flyers</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i class="fas fa-check text-accent text-sm"></i>
+                  <span>Print & Marketing Materials</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="mt-8 space-y-4">
+              <div class="flex items-start gap-4">
+                <div class="mt-1 bg-primary/10 p-2 rounded-full text-primary">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium">Email</h4>
+                  <a
+                    href="mailto:hello@yourportfolio.com"
+                    class="text-slate-600 hover:text-accent transition-colors"
+                  >
+                    usseinkelvin20@gmail.com
+                  </a>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="mt-1 bg-primary/10 p-2 rounded-full text-primary">
+                  <i class="fas fa-phone"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium">Phone</h4>
+                  <a
+                    href="tel:+11234567890"
+                    class="text-slate-600 hover:text-accent transition-colors"
+                  >
+                    +265 (0) 884 022 590
+                  </a>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="mt-1 bg-primary/10 p-2 rounded-full text-primary">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium">Location</h4>
+                  <p class="text-slate-600">Area 25, Lilongwe</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-8">
+              <h4 class="font-medium mb-4">Connect on Social Media</h4>
+              <div class="flex gap-4">
+                <a
+                  href="https://www.behance.net/dobsdesigns"
+                  class="bg-primary/10 hover:bg-primary/20 text-primary p-3 rounded-full transition-colors"
+                  aria-label="Behance"
+                >
+                  <i class="fab fa-behance"></i>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/kelvin-ussein-611073259"
+                  class="bg-primary/10 hover:bg-primary/20 text-primary p-3 rounded-full transition-colors"
+                  aria-label="LinkedIn"
+                >
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+
+                <a
+                  href="https://www.instagram.com/dobsdesigns?igsh=bmh0NWtqbWwxam5x"
+                  class="bg-primary/10 hover:bg-primary/20 text-primary p-3 rounded-full transition-colors"
+                  aria-label="Instagram"
+                >
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div data-aos="fade-left">
+            <form
+              id="contact-form"
+              class="bg-slate-50 p-6 rounded-lg shadow-sm"
+            >
+              <div class="mb-4">
+                <label for="name" class="block mb-2 font-medium text-primary"
+                  >Name</label
+                >
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  class="w-full px-4 py-3 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-colors"
+                  placeholder="Your name"
+                  required
+                />
+              </div>
+
+              <div class="mb-4">
+                <label for="email" class="block mb-2 font-medium text-primary"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="w-full px-4 py-3 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-colors"
+                  placeholder="Your email address"
+                  required
+                />
+              </div>
+
+              <!-- <div class="mb-4">
+                <label
+                  for="projectType"
+                  class="block mb-2 font-medium text-primary"
+                  >Project Type</label
+                >
+                <select
+                  id="projectType"
+                  name="projectType"
+                  class="w-full px-4 py-3 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-colors"
+                  required
+                >
+                  <option value="">Select project type</option>
+                  <option value="brand-identity">Brand Identity Design</option>
+                  <option value="editorial">Social Media Designs</option>
+                  <option value="packaging">Posters</option>
+                  <option value="illustration">Illustration & Artwork</option>
+                  <option value="print">Print & Marketing Materials</option>
+                  <option value="other">Other</option>
+                </select>
+              </div> -->
+
+              <div class="mb-4">
+                <label for="message" class="block mb-2 font-medium text-primary"
+                  >Message</label
+                >
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  class="w-full px-4 py-3 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-colors resize-none"
+                  placeholder="Tell me about your project..."
+                  required
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full px-6 py-3 bg-accent hover:bg-accent/90 text-white font-medium rounded-md transition-colors"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white pt-12 pb-6">
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <div>
+            <h3 class="font-display font-semibold text-xl mb-4">
+              Kelvin Ussein
+            </h3>
+            <p class="text-slate-300 mb-4">
+              Creating compelling visual stories and brand identities that leave
+              a lasting impression.
+            </p>
+            <div class="flex gap-4">
+              <a
+                href="https://www.behance.net/dobsdesigns"
+                class="text-slate-300 hover:text-accent transition-colors"
+              >
+                <i class="fab fa-behance"></i>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/kelvin-ussein-611073259"
+                class="text-slate-300 hover:text-accent transition-colors"
+              >
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+
+              <a
+                href="https://www.instagram.com/dobsdesigns?igsh=bmh0NWtqbWwxam5x"
+                class="text-slate-300 hover:text-accent transition-colors"
+              >
+                <i class="fab fa-instagram"></i>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="font-semibold text-xl mb-4">Quick Links</h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#home"
+                  class="text-slate-300 hover:text-accent transition-colors"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#work"
+                  class="text-slate-300 hover:text-accent transition-colors"
+                  >Portfolio</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  class="text-slate-300 hover:text-accent transition-colors"
+                  >About</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  class="text-slate-300 hover:text-accent transition-colors"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="font-semibold text-xl mb-4">Contact Info</h3>
+            <ul class="space-y-2">
+              <li class="flex items-center gap-3">
+                <i class="fas fa-envelope text-accent"></i>
+                <a
+                  href="mail:usseinkelvin20@gmail.com"
+                  class="text-slate-300 hover:text-accent transition-colors"
+                  >usseinkelvin20@gmail.com</a
+                >
+              </li>
+              <li class="flex items-center gap-3">
+                <i class="fas fa-phone text-accent"></i>
+                <a
+                  href="tel:+265884022590"
+                  class="text-slate-300 hover:text-accent transition-colors"
+                  >+265(0) 884 022 590</a
+                >
+              </li>
+              <li class="flex items-center gap-3">
+                <i class="fas fa-map-marker-alt text-accent"></i>
+                <span class="text-slate-300">Area 25, Lilongwe</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-700 pt-6">
+          <p class="text-center text-slate-400">
+            &copy; 2025 Kelvin Ussein. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Project Details Modal -->
+    <div id="project-modal" class="modal">
+      <div class="modal-content p-6">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <h2 id="modal-title" class="text-2xl font-bold"></h2>
+            <p
+              id="modal-category"
+              class="text-base text-accent font-medium"
+            ></p>
+          </div>
+          <button id="close-modal" class="text-slate-500 hover:text-slate-800">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+
+        <!-- Image Gallery -->
+        <div class="relative mt-4 rounded-lg overflow-hidden">
+          <div class="h-[400px] bg-slate-100 relative">
+            <img
+              id="modal-main-image"
+              src=""
+              alt=""
+              class="w-full h-full object-contain"
+            />
+
+            <button
+              id="prev-image"
+              class="gallery-nav left-4"
+              aria-label="Previous image"
+            >
+              <i class="fas fa-arrow-left"></i>
+            </button>
+            <button
+              id="next-image"
+              class="gallery-nav right-4"
+              aria-label="Next image"
+            >
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+
+          <!-- Thumbnails -->
+          <div
+            id="thumbnails-container"
+            class="flex mt-4 gap-2 overflow-x-auto pb-2"
+          >
+            <!-- Thumbnails will be added here dynamically -->
+          </div>
+        </div>
+
+        <!-- Project Details -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+          <div class="md:col-span-2">
+            <h3 class="text-lg font-semibold mb-2">Project Description</h3>
+            <p id="modal-description" class="text-slate-700"></p>
+          </div>
+
+          <div>
+            <div class="mb-4">
+              <h4 class="font-medium text-sm text-slate-500">CLIENT</h4>
+              <p id="modal-client" class="text-slate-800"></p>
+            </div>
+
+            <div class="mb-4">
+              <h4 class="font-medium text-sm text-slate-500">YEAR</h4>
+              <p id="modal-year" class="text-slate-800"></p>
+            </div>
+
+            <div>
+              <h4 class="font-medium text-sm text-slate-500">SERVICES</h4>
+              <ul id="modal-services" class="mt-1">
+                <!-- Services will be added here dynamically -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Main JavaScript -->
+    <script src="main.js"></script>
+  </body>
+</html>
