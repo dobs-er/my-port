@@ -489,7 +489,7 @@ const projects = [
     category: "brand-identity",
     description: "A series of social media ad designs Loop Media Brand.",
     fullDescription: "This section contains designs for my personal brand .",
-    thumbnail: "images/dobs/cover.jpg",
+    thumbnail: "images/dobs/12.jpg",
     images: [
       {
         url: "images/dobs/33.png",
@@ -669,45 +669,45 @@ const projects = [
         alt: "Main poster design",
       },
       {
-        url: "images/zoda/2.jpg",
+        url: "images/ima/2.jpg",
         alt: "Main poster design",
       },
       {
-        url: "images/zoda/3.jpg",
+        url: "images/ima/3.jpg",
         alt: "Main poster design",
       },
       {
-        url: "images/zoda/4.jpg",
+        url: "images/ima/4.jpg",
         alt: "Main poster design",
       },
       {
-        url: "images/zoda/5.jpg",
+        url: "images/ima/5.jpg",
         alt: "Main poster design",
       },
       {
-        url: "images/zoda/6.jpg",
+        url: "images/ima/6.jpg",
         alt: "Main poster design",
       },
       {
-        url: "images/zoda/7.jpg",
+        url: "images/ima/7.jpg",
         alt: "Main poster design",
       },
       {
-        url: "images/zoda/8.jpg",
-        alt: "Main poster design",
-      },
-
-      {
-        url: "images/zoda/9.jpg",
+        url: "images/ima/8.jpg",
         alt: "Main poster design",
       },
 
       {
-        url: "images/zoda/10.jpg",
+        url: "images/ima/9.jpg",
+        alt: "Main poster design",
+      },
+
+      {
+        url: "images/ima/10.jpg",
         alt: "Main poster design",
       },
     ],
-    client: "Zoda Bundles ",
+    client: "IMA Auto Parts ",
     year: "2025",
     services: ["Branding identity"],
   },
